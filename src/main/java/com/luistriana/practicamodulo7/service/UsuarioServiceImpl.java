@@ -1,6 +1,6 @@
 package com.luistriana.practicamodulo7.service;
 
-import com.luistriana.practicamodulo7.Exeption.UsuarioNoEncontradoException;
+import com.luistriana.practicamodulo7.exeption.UsuarioNoEncontradoException;
 import com.luistriana.practicamodulo7.model.Usuario;
 import org.springframework.stereotype.Service;
 
@@ -25,34 +25,36 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public void eliminarUsuario(Long id) {
         Usuario usuarioEliminar = buscarUsuarioId(id);
-       usuarios.remove(usuarioEliminar);
+        usuarios.remove(usuarioEliminar);
     }
 
     @Override
     public List<Usuario> verTodosLosUsuarios() {
-      return new ArrayList<>(usuarios);
+        return new ArrayList<>(usuarios);
     }
 
     @Override
     public Usuario actualizarUsuario(Long id, Usuario usuario) {
-        //TODO MEJORAR ESTA ESTRUCTURA PARA RECIBIR MODELMAPER O MAPSTRUCTURE
-    Usuario usuarioActual = buscarUsuarioId(id);
-    usuarios.remove(usuarioActual);
-    // MANTENEMOS EL ID ORGINAL 
-    usuario.setId(id);
-    usuarios.add(usuario);
-    return usuario;
+        // TODO MEJORAR ESTA ESTRUCTURA PARA RECIBIR MODELMAPER O MAPSTRUCTURE
+        Usuario usuarioActual = buscarUsuarioId(id);
+        usuarios.remove(usuarioActual);
+        // MANTENEMOS EL ID ORGINAL
+        usuario.setId(id);
+        usuarios.add(usuario);
+        return usuario;
 
     }
 
-    /* 
-    @Override
-    public Usuario actualizarParcialmente(Long id, Usuario usuario) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actualizarParcialmente'");
-    }
-    // private final AtomicLong idGenerator = new AtomicLong(1);
-**/
+    /*
+     * @Override
+     * public Usuario actualizarParcialmente(Long id, Usuario usuario) {
+     * // TODO Auto-generated method stub
+     * throw new
+     * UnsupportedOperationException("Unimplemented method 'actualizarParcialmente'"
+     * );
+     * }
+     * // private final AtomicLong idGenerator = new AtomicLong(1);
+     **/
     @Override
     public Usuario buscarUsuarioId(Long id) {
         return usuarios.stream().filter(usuario -> usuario.getId().equals(id))
